@@ -8,7 +8,7 @@ export default class App extends React.PureComponent<Props, State> {
     playerTurn: "red",
     gameStatus: "It's red's turn"
   };
-  calculateGameStatus = (playerTurn: string, chipsPositions: ChipsPositions): string => {
+  calculateStatus = (playerTurn: string, chipsPositions: ChipsPositions): string => {
     const { columns, rows } = this.props;
     // Check four in a row horizontally
     for (let row = 0; row < rows; row++) {
@@ -54,7 +54,7 @@ export default class App extends React.PureComponent<Props, State> {
 
     return `It's ${playerTurn}'s turn`;
   };
-  handleTileClick = (tileId: string) => {
+  handleClick = (tileId: string) => {
     const { chipsPositions, playerTurn } = this.state;
     // const column = parseInt(tileId.split(":")[1]);
     let lastEmptyTileId = tileId;
@@ -70,7 +70,7 @@ export default class App extends React.PureComponent<Props, State> {
     // Change player turn
     const newPlayerTurn = playerTurn === "red" ? "yellow" : "red";
     // Calculate game status
-    const gameStatus = this.calculateGameStatus(newPlayerTurn, newChipsPositions);
+    const gameStatus = this.calculateStatus(newPlayerTurn, newChipsPositions);
     // Save new state
     this.setState({ chipsPositions: newChipsPositions, playerTurn: newPlayerTurn, gameStatus });
   };
@@ -83,7 +83,7 @@ export default class App extends React.PureComponent<Props, State> {
             columns={columns}
             rows={rows}
             chipsPositions={chipsPositions}
-            onTileClick={this.handleTileClick}
+            onTileClick={this.handleClick}
         />
     );
   }
